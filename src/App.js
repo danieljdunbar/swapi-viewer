@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import PersonSummary from './PersonSummary';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
 
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [people, setPeople] = useState([]);
+  const [result, setResult] = useState({});
 
   // Note: the empty deps array [] means
   // this useEffect will run once
@@ -15,15 +16,15 @@ function App() {
       .then(res => res.json())
       .then(
         (result) => {
+          setResult(result);
           setIsLoaded(true);
-          setPeople(result);
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
-          setIsLoaded(true);
           setError(error);
+          setIsLoaded(true);
         }
       )
   }, [])
@@ -34,7 +35,16 @@ function App() {
     return <div>Loading...</div>;
   } else {
     return (
-      <div>{JSON.stringify(people)}</div>
+      <div>
+        <h1>Swapi Viewer</h1>
+        <ul>
+          {result.results.map(person => (
+            <li>
+              <PersonSummary value={person}/>
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }
