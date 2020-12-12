@@ -1,51 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import PersonSummary from './PersonSummary';
+import React from 'react';
+import ListPeople from './ListPeople';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
 
-function App() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [result, setResult] = useState({});
+function PrettyPrintResult(props) {
+  return (<pre>{JSON.stringify(props.value, null, 2)}</pre>);
+}
 
-  // Note: the empty deps array [] means
-  // this useEffect will run once
-  // similar to componentDidMount()
-  useEffect(() => {
-    fetch(SWAPI_PEOPLE_URL)
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null, isLoaded: false, result: {} };
+  }
+
+  retrieveResults(url) {
+    this.state = { error: null, isLoaded: false, result: {} };
+    
+    fetch(url)
       .then(res => res.json())
       .then(
-        (result) => {
-          setResult(result);
-          setIsLoaded(true);
+        (jsonResponse) => {
+          this.setState({ error: null, isLoaded: true, result: jsonResponse });
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
-        (error) => {
-          setError(error);
-          setIsLoaded(true);
+        (err) => {
+          this.setState({ error: err, isLoaded: true, result: {} });
         }
-      )
-  }, [])
+      );
+  }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
-  } else {
-    return (
-      <div>
-        <h1>Swapi Viewer</h1>
-        <ul>
-          {result.results.map(person => (
-            <li>
-              <PersonSummary value={person}/>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+  componentDidMount() {
+    this.retrieveResults(SWAPI_PEOPLE_URL);
+  }
+
+  render() {
+    if (this.state.error) {
+      return <div>Error: {this.state.error.message}</div>;
+    } else if (!this.state.isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div>
+          <h1>Swapi Viewer</h1>
+          <div>
+            <button
+                onClick={() => this.retrieveResults(this.state.result.previous)}>
+              Previous
+            </button>
+            <button
+                onClick={() => this.retrieveResults(this.state.result.next)}>
+              Next
+            </button>
+          </div>
+          <PrettyPrintResult value={this.state.result} />
+          <ListPeople value={this.state.result.results} />
+        </div>
+      );
+    }
   }
 }
 
