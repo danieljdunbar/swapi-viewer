@@ -1,12 +1,12 @@
-import PersonSummary from './PersonSummary';
 import React from 'react';
 import { Person } from './common_interfaces';
+import {PersonSummary} from './PersonSummary';
 
 interface IProps {
     value: Person[];
 }
 
-function ListPeople(props: IProps) {
+export function ListPeople(props: IProps) {
     const people = props.value;
     return(
         <ul>
@@ -18,5 +18,3 @@ function ListPeople(props: IProps) {
         </ul>
     );
 }
-
-export default ListPeople;

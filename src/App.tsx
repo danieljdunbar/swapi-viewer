@@ -1,6 +1,6 @@
-import React from 'react';
-import {IProps, SwapiResponse} from './common_interfaces';
-import ListPeople from './ListPeople';
+import React, {useState, useEffect} from 'react';
+import {SwapiResponse} from './common_interfaces';
+import {ListPeople} from './ListPeople';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
 
@@ -10,67 +10,74 @@ interface IState {
   result: SwapiResponse|undefined;
 }
 
+export interface IProps {
+  value?: any;
+}
+
 function PrettyPrintResult(props: IProps) {
   return (<pre>{JSON.stringify(props.value, null, 2)}</pre>);
 }
 
-class App extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = { error: undefined, isLoaded: false, result: undefined };
-  }
+function App() {
+  const [error, setError] = useState<Error>();
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [result, setResult] = useState<SwapiResponse>({} as SwapiResponse);
 
-  retrieveResults(url: string|null) {
+  const retrieveResults = (url: string|null) => {
     if (!url) {
       return;
     }
 
-    this.state = { error: undefined, isLoaded: false, result: undefined };
-    
+    setIsLoaded(false);
+
     fetch(url)
       .then(res => res.json())
       .then(
-        (jsonResponse) => {
-          const response: SwapiResponse = JSON.parse(JSON.stringify(jsonResponse));
-          this.setState({ error: undefined, isLoaded: true, result: response });
+        (result) => {
+          const response: SwapiResponse = JSON.parse(JSON.stringify(result));
+
+          setResult(response);
+          setIsLoaded(true);
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
-        (err) => {
-          this.setState({ error: err, isLoaded: true, result: undefined });
+        (error) => {
+          setError(error);
+          setIsLoaded(true);
         }
       );
   }
 
-  componentDidMount() {
-    this.retrieveResults(SWAPI_PEOPLE_URL);
-  }
+  // Note: the empty deps array [] means
+  // this useEffect will run once
+  // similar to componentDidMount()
+  useEffect(() => {
+    retrieveResults(SWAPI_PEOPLE_URL);
+  }, []);
 
-  render() {
-    if (this.state.error) {
-      return <div>Error: {this.state.error.message}</div>;
-    } else if (!this.state.isLoaded) {
-      return <div>Loading...</div>;
-    } else {
-      return (
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <div>Loading...</div>;
+  } else {
+    return (
+      <div>
+        <h1>Swapi Viewer</h1>
         <div>
-          <h1>Swapi Viewer</h1>
-          <div>
-            <button
-                onClick={() => this.retrieveResults(this.state.result!.previous)}>
-              Previous
-            </button>
-            <button
-                onClick={() => this.retrieveResults(this.state.result!.next)}>
-              Next
-            </button>
-          </div>
-          {/* <PrettyPrintResult value={this.state.result} /> */}
-          <ListPeople value={this.state.result ? this.state.result.results : []} />
+          <button
+              onClick={() => retrieveResults(result.previous)}>
+            Previous
+          </button>
+          <button
+              onClick={() => retrieveResults(result.next)}>
+            Next
+          </button>
         </div>
-      );
-    }
+        {/* <PrettyPrintResult value={this.state.result} /> */}
+        <ListPeople value={result ? result.results : []} />
+      </div>
+    );
   }
 }
 

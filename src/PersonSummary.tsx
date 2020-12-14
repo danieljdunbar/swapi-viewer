@@ -5,7 +5,7 @@ interface IProps {
     value: Person;
 }
 
-function PersonSummary(props: IProps) {
+export function PersonSummary(props: IProps) {
     const person = props.value;
 
     return (
@@ -20,5 +20,3 @@ function PersonSummary(props: IProps) {
             <div>Skin Color: {person.skin_color}</div>
         </div>);
 }
-
-export default PersonSummary;

@@ -1,7 +1,3 @@
-export interface IProps {
-    value?: any;
-}
-
 export interface Person {
     name: string;
     birth_year: string;
