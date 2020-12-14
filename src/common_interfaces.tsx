@@ -23,3 +23,29 @@ export interface SwapiResponse {
     previous: string|null;
     results: Person[];
 }
+
+export const DEFAULT_PERSON: Person = {
+    name: "",
+    birth_year: "",
+    eye_color: "",
+    gender: "",
+    hair_color: "",
+    height: "",
+    mass: "",
+    skin_color: "",
+    homeworld: "",
+    films: [],
+    species: [],
+    starships: [],
+    vehicles: [],
+    url: "",
+    created: "",
+    edited: "",
+}
+
+export const DEFAULT_SWAPI_RESPONSE: SwapiResponse = {
+    count: -1,
+    next: null,
+    previous: null,
+    results: [],
+}

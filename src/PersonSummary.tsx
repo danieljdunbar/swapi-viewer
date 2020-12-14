@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardHeader, Button, Grid } from '@material-ui/core';
 import { Person } from './common_interfaces';
+import { replacePerson } from './redux/PersonSlice';
+import { useDispatch } from 'react-redux';
 import './PersonSummary.css';
 
 interface IProps {
@@ -8,11 +10,14 @@ interface IProps {
 }
 
 export function PersonSummary(props: IProps) {
+    const dispatch = useDispatch();
+
     return (
         <Grid 
                 className="grid-item" 
                 item 
-                sm={4}>
+                sm={4}
+                key={props.person.name}>
             <Card 
                     variant="outlined"
                     className="person-card">
@@ -27,7 +32,7 @@ export function PersonSummary(props: IProps) {
                     <div>Skin Color: {props.person.skin_color}</div>
                 </CardContent>
                 <CardActions>
-                    <Button>
+                    <Button type="button" onClick={() => dispatch(replacePerson(props.person))}>
                         Learn More
                     </Button>
                 </CardActions>

@@ -17,7 +17,8 @@ export function ListPeople(props: IProps) {
                         container
                         spacing={2}
                         alignItems="stretch"
-                        justify="space-around">
+                        justify="space-around"
+                        key="people-grid">
                     {props.people.map(person => (
                         <PersonSummary person={person} />
                     ))}
