@@ -1,6 +1,12 @@
 import PersonSummary from './PersonSummary';
+import React from 'react';
+import { Person } from './common_interfaces';
 
-function ListPeople(props) {
+interface IProps {
+    value: Person[];
+}
+
+function ListPeople(props: IProps) {
     const people = props.value;
     return(
         <ul>

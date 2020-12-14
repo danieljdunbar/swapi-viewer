@@ -1,4 +1,11 @@
-function PersonSummary(props) {
+import React from 'react';
+import { Person } from './common_interfaces';
+
+interface IProps {
+    value: Person;
+}
+
+function PersonSummary(props: IProps) {
     const person = props.value;
 
     return (
