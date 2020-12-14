@@ -1,14 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import {Button, Paper} from '@material-ui/core';
 import {SwapiResponse} from './common_interfaces';
 import {ListPeople} from './ListPeople';
+import './App.css';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
-
-interface IState {
-  error: Error|undefined;
-  isLoaded: boolean;
-  result: SwapiResponse|undefined;
-}
 
 export interface IProps {
   value?: any;
@@ -58,24 +54,33 @@ function App() {
 
   if (error) {
     return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
   } else {
     return (
       <div>
-        <h1>Swapi Viewer</h1>
-        <div>
-          <button
+        <Paper className="swapi-header">Swapi Viewer</Paper>
+        <div className="page-buttons">
+          <Button
+              className="previous-button"
+              color="primary"
+              variant="contained"
+              disabled={result.previous === null}
               onClick={() => retrieveResults(result.previous)}>
             Previous
-          </button>
-          <button
+          </Button>
+          <Button
+              className="next-button"
+              color="primary"
+              variant="contained"
+              disabled={result.next === null}
               onClick={() => retrieveResults(result.next)}>
             Next
-          </button>
+          </Button>
         </div>
-        {/* <PrettyPrintResult value={this.state.result} /> */}
-        <ListPeople value={result ? result.results : []} />
+        <div className="content-container">
+          <ListPeople 
+              isLoaded={isLoaded}
+              people={result ? result.results : []} />
+        </div>
       </div>
     );
   }

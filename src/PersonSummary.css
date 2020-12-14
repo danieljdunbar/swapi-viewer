@@ -1,0 +1,7 @@
+.grid-item {
+    display: flex;
+}
+
+.person-card {
+    flex-grow: 1;
+}
