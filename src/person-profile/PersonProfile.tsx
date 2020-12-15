@@ -2,9 +2,11 @@ import React, { useEffect, useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import { selectPerson } from '../redux/PersonSlice';
 import { Paper } from '@material-ui/core';
-import { CircularProgress } from '@material-ui/core';
-import { Film } from '../common_interfaces';
-import FilmsList from './films/FilmsList';
+import { CircularProgress, IconButton } from '@material-ui/core';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import { Film } from '../common/common_interfaces';
+import ListFilms from './films/ListFilms';
+import { Link } from "react-router-dom";
 import './PersonProfile.css';
 
 type ActionType = 'addResult'|'addError';
@@ -99,7 +101,17 @@ export default function PersonProfile () {
     } else {
         return (
             <div>
-                <Paper className="person-header">{selectedPerson.name}</Paper>
+                <Paper className="person-header">
+                    <IconButton 
+                            aria-label="Return home"
+                            component={Link} 
+                            to="/">
+                        <ArrowBack />
+                    </IconButton>
+                    <div className="profile-title">
+                        {selectedPerson.name}
+                    </div>
+                </Paper>
                 <div className="person-details">
                     <div>Birth Year: {selectedPerson.birth_year}</div>
                     <div>Eye Color: {selectedPerson.eye_color}</div>
@@ -109,7 +121,7 @@ export default function PersonProfile () {
                     <div>Mass: {selectedPerson.mass}</div>
                     <div>Skin Color: {selectedPerson.skin_color}</div>
                 </div>
-                <FilmsList films={state.results} />
+                <ListFilms films={state.results} />
             </div>
         );
     }

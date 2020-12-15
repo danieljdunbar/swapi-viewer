@@ -1,0 +1,11 @@
+.grid-item {
+    display: flex;
+}
+
+.film-card {
+    flex-grow: 1;
+}
+
+.opening-crawl {
+    margin-bottom: 16px;
+}

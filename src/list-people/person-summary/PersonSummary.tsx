@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardHeader, Button, Grid } from '@material-ui/core';
-import { Person } from './common_interfaces';
-import { replacePerson } from './redux/PersonSlice';
+import { Person } from '../../common/common_interfaces';
+import { replacePerson } from '../../redux/PersonSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Person, DEFAULT_PERSON } from '../common_interfaces';
+import { Person, DEFAULT_PERSON } from '../common/common_interfaces';
 
 export const slice = createSlice({
     name: 'person',

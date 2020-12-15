@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, CircularProgress } from '@material-ui/core';
-import { Person } from './common_interfaces';
-import { PersonSummary } from './PersonSummary';
+import { Person } from '../common/common_interfaces';
+import { PersonSummary } from './person-summary/PersonSummary';
 import './ListPeople.css';
 
 interface IProps {
@@ -17,12 +17,11 @@ export function ListPeople(props: IProps) {
                         container
                         spacing={2}
                         alignItems="stretch"
-                        justify="space-around"
+                        justify="space-between"
                         key="people-grid">
                     {props.people.map(person => (
                         <PersonSummary person={person} />
                     ))}
-
                 </Grid>
             </div>
         );

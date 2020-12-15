@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Button, Paper} from '@material-ui/core';
-import {SwapiResponse, DEFAULT_SWAPI_RESPONSE} from './common_interfaces';
-import {ListPeople} from './ListPeople';
+import {SwapiResponse, DEFAULT_SWAPI_RESPONSE} from '../common/common_interfaces';
+import {ListPeople} from '../list-people/ListPeople';
 import './App.css';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
