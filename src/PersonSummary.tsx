@@ -3,6 +3,8 @@ import { Card, CardActions, CardContent, CardHeader, Button, Grid } from '@mater
 import { Person } from './common_interfaces';
 import { replacePerson } from './redux/PersonSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
+
 import './PersonSummary.css';
 
 interface IProps {
@@ -32,7 +34,11 @@ export function PersonSummary(props: IProps) {
                     <div>Skin Color: {props.person.skin_color}</div>
                 </CardContent>
                 <CardActions>
-                    <Button type="button" onClick={() => dispatch(replacePerson(props.person))}>
+                    <Button 
+                            type="button" 
+                            component={Link} 
+                            to={'/' + props.person.name}
+                            onClick={() => dispatch(replacePerson(props.person))}>
                         Learn More
                     </Button>
                 </CardActions>

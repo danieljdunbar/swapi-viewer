@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Button, Paper} from '@material-ui/core';
 import {SwapiResponse, DEFAULT_SWAPI_RESPONSE} from './common_interfaces';
 import {ListPeople} from './ListPeople';
-import { selectPerson } from './redux/PersonSlice';
-import { useSelector } from 'react-redux';
 import './App.css';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
@@ -17,7 +15,6 @@ function PrettyPrintResult(props: IProps) {
 }
 
 function App() {
-  const selectedPerson = useSelector(selectPerson);
   const [error, setError] = useState<Error>();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [result, setResult] = useState<SwapiResponse>(DEFAULT_SWAPI_RESPONSE);
@@ -61,7 +58,6 @@ function App() {
     return (
       <div>
         <Paper className="swapi-header">Swapi Viewer</Paper>
-        <Paper className="swapi-header">{selectedPerson.name}</Paper>
         <div className="page-buttons">
           <Button
               className="previous-button"
