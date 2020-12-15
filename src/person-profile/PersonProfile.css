@@ -1,6 +1,10 @@
-.swapi-header {
+.person-header {
     text-align: center;
     padding: 24px;
     font-size: xx-large;
     font-weight: bold;
+}
+
+.person-details {
+    margin: 24px;
 }

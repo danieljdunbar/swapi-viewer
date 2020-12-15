@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Person, DEFAULT_PERSON } from '../common_interfaces';
 
-// export interface SelectedPerson {
-//     person: Person;
-// }
-
 export const slice = createSlice({
     name: 'person',
     initialState: DEFAULT_PERSON as Person,
@@ -17,4 +13,4 @@ export const slice = createSlice({
 
 export const { replacePerson } = slice.actions;
 export const selectPerson = (state: Person) => state;
-export default slice.reducer;
+export const personReducer = slice.reducer;

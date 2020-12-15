@@ -10,10 +10,6 @@ export interface IProps {
   value?: any;
 }
 
-function PrettyPrintResult(props: IProps) {
-  return (<pre>{JSON.stringify(props.value, null, 2)}</pre>);
-}
-
 function App() {
   const [error, setError] = useState<Error>();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
