@@ -13,11 +13,11 @@ export default function ListFilms(props: IProps) {
         <div className="films-container">
             <h2>Films</h2>
             <Grid
-                    container
-                    spacing={2}
-                    alignItems="stretch"
-                    justify="space-between"
-                    key="people-grid">
+                container
+                spacing={2}
+                alignItems="stretch"
+                justify="space-between"
+                key="people-grid">
                 {props.films.map(film => (
                     <FilmSummary film={film} />
                 ))}

@@ -15,14 +15,14 @@ export function PersonSummary(props: IProps) {
     const dispatch = useDispatch();
 
     return (
-        <Grid 
-                className="grid-item" 
-                item 
-                sm={4}
-                key={props.person.name}>
-            <Card 
-                    variant="outlined"
-                    className="person-card">
+        <Grid
+            className="grid-item"
+            item
+            sm={4}
+            key={props.person.name}>
+            <Card
+                variant="outlined"
+                className="person-card">
                 <CardHeader title={props.person.name} />
                 <CardContent>
                     <div>Birth Year: {props.person.birth_year}</div>
@@ -34,11 +34,11 @@ export function PersonSummary(props: IProps) {
                     <div>Skin Color: {props.person.skin_color}</div>
                 </CardContent>
                 <CardActions>
-                    <Button 
-                            type="button" 
-                            component={Link} 
-                            to={'/' + props.person.name}
-                            onClick={() => dispatch(replacePerson(props.person))}>
+                    <Button
+                        type="button"
+                        component={Link}
+                        to={'/' + props.person.name}
+                        onClick={() => dispatch(replacePerson(props.person))}>
                         Learn More
                     </Button>
                 </CardActions>

@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {Button, Paper} from '@material-ui/core';
-import {SwapiResponse, DEFAULT_SWAPI_RESPONSE} from '../common/common_interfaces';
-import {ListPeople} from '../list-people/ListPeople';
+import React, { useState, useEffect } from 'react';
+import { Button, Paper } from '@material-ui/core';
+import { SwapiResponse, DEFAULT_SWAPI_RESPONSE } from '../common/common_interfaces';
+import ListPeople from '../list-people/ListPeople';
 import './App.css';
 
 const SWAPI_PEOPLE_URL = 'https://swapi.dev/api/people';
@@ -15,7 +15,7 @@ function App() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [result, setResult] = useState<SwapiResponse>(DEFAULT_SWAPI_RESPONSE);
 
-  const retrieveResults = (url: string|null) => {
+  const retrieveResults = (url: string | null) => {
     if (!url) {
       return;
     }
@@ -31,9 +31,6 @@ function App() {
           setResult(response);
           setIsLoaded(true);
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           setError(error);
           setIsLoaded(true);
@@ -56,26 +53,26 @@ function App() {
         <Paper className="swapi-header">Swapi Viewer</Paper>
         <div className="page-buttons">
           <Button
-              className="previous-button"
-              color="primary"
-              variant="contained"
-              disabled={result.previous === null}
-              onClick={() => retrieveResults(result.previous)}>
+            className="previous-button"
+            color="primary"
+            variant="contained"
+            disabled={result.previous === null}
+            onClick={() => retrieveResults(result.previous)}>
             Previous
           </Button>
           <Button
-              className="next-button"
-              color="primary"
-              variant="contained"
-              disabled={result.next === null}
-              onClick={() => retrieveResults(result.next)}>
+            className="next-button"
+            color="primary"
+            variant="contained"
+            disabled={result.next === null}
+            onClick={() => retrieveResults(result.next)}>
             Next
           </Button>
         </div>
         <div className="content-container">
-          <ListPeople 
-              isLoaded={isLoaded}
-              people={result ? result.results : []} />
+          <ListPeople
+            isLoaded={isLoaded}
+            people={result ? result.results : []} />
         </div>
       </div>
     );

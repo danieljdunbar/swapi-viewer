@@ -5,17 +5,17 @@ import PersonProfile from './person-profile/PersonProfile';
 
 export default function AppRouter() {
     return (
-      <Router>
-        <div>
-          <Switch>
-            <Route path="/:personName">
-                <PersonProfile />
-            </Route>
-            <Route path="/">
-              <App />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+        <Router>
+            <div>
+                <Switch>
+                    <Route path="/:personName">
+                        <PersonProfile />
+                    </Route>
+                    <Route path="/">
+                        <App />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
     );
-  }
+}

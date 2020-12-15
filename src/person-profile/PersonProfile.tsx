@@ -9,7 +9,7 @@ import ListFilms from './films/ListFilms';
 import { Link } from "react-router-dom";
 import './PersonProfile.css';
 
-type ActionType = 'addResult'|'addError';
+type ActionType = 'addResult' | 'addError';
 
 interface PageAction {
     type: ActionType;
@@ -25,9 +25,9 @@ interface PageState {
 }
 
 function reducer(state: PageState, action: PageAction): PageState {
-    switch(action.type) {
+    switch (action.type) {
         case 'addResult':
-            if (action.film){
+            if (action.film) {
 
                 const updatedResults: Film[] = state.results.slice();
                 updatedResults.push(action.film);
@@ -41,7 +41,7 @@ function reducer(state: PageState, action: PageAction): PageState {
 
             break;
         case 'addError':
-            if (action.error){
+            if (action.error) {
                 const updatedErrors: Error[] = state.errors.slice();
                 updatedErrors.push(action.error);
                 return {
@@ -58,9 +58,9 @@ function reducer(state: PageState, action: PageAction): PageState {
     return state;
 }
 
-export default function PersonProfile () {
+export default function PersonProfile() {
     const selectedPerson = useSelector(selectPerson);
-    const initialState = {errors: [], isLoaded: false, targetSize: selectedPerson.films.length, results: []};
+    const initialState = { errors: [], isLoaded: false, targetSize: selectedPerson.films.length, results: [] };
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
@@ -69,14 +69,14 @@ export default function PersonProfile () {
                 .then(res => res.json())
                 .then(
                     (result) => {
-                        const response:Film = JSON.parse(JSON.stringify(result));
-                        dispatch({type: 'addResult', film: response});
+                        const response: Film = JSON.parse(JSON.stringify(result));
+                        dispatch({ type: 'addResult', film: response });
                     },
                     // Note: it's important to handle errors here
                     // instead of a catch() block so that we don't swallow
                     // exceptions from actual bugs in components.
                     (error) => {
-                        dispatch({type: 'addResult', error});
+                        dispatch({ type: 'addResult', error });
                     }
                 );
         }
@@ -90,7 +90,7 @@ export default function PersonProfile () {
                     <div>{error.message}</div>
                 ))}
             </div>
-            
+
         );
     } else if (!state.isLoaded) {
         return (
@@ -102,10 +102,10 @@ export default function PersonProfile () {
         return (
             <div>
                 <Paper className="person-header">
-                    <IconButton 
-                            aria-label="Return home"
-                            component={Link} 
-                            to="/">
+                    <IconButton
+                        aria-label="Return home"
+                        component={Link}
+                        to="/">
                         <ArrowBack />
                     </IconButton>
                     <div className="profile-title">
